@@ -1,0 +1,101 @@
+generator client {
+  provider      = "prisma-client-js"
+  binaryTargets = ["native", "debian-openssl-3.0.x"]
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id         String    @id @default(uuid())
+  hashid     String    @unique
+  googleSub  String    @unique
+  email      String?
+  name       String?
+  picture    String?
+  createdAt  DateTime  @default(now())
+  updatedAt  DateTime  @updatedAt
+  Projects   Project[]
+  Files      File[]
+  @@index([hashid])
+}
+
+model Project {
+  id                    String    @id @default(uuid())
+  owner                 User      @relation(fields: [ownerId], references: [id])
+  ownerId               String
+  hashid                String    @unique
+  brandName             String
+  brandWebsite          String
+  initialMetadata       Json?
+  findingsDraft         Json?     // editable by user (what LLM initially found)
+  conversationSnapshot  Json?     // minimized snapshot used as LLM context
+  createdAt             DateTime  @default(now())
+  lastActivityAt        DateTime  @default(now())
+  deleted               Boolean   @default(false)
+  Messages              Message[]
+  Files                 File[]
+  Analyses              Analysis[]
+  @@index([ownerId])
+  @@index([brandName])
+  @@index([lastActivityAt])
+}
+
+model Message {
+  id        String   @id @default(uuid())
+  project   Project  @relation(fields: [projectId], references: [id])
+  projectId String
+  senderId  String?  // null => system/LLM
+  role      String
+  content   Json
+  createdAt DateTime @default(now())
+  redacted  Boolean  @default(false)
+  @@index([projectId, createdAt])
+}
+
+model File {
+  id         String   @id @default(uuid())
+  owner      User     @relation(fields: [ownerId], references: [id])
+  ownerId    String
+  project    Project  @relation(fields: [projectId], references: [id])
+  projectId  String
+  s3Key      String
+  filename   String
+  mimeType   String
+  sizeBytes  BigInt
+  metadata   Json?
+  uploadedAt DateTime @default(now())
+  deleted    Boolean  @default(false)
+  @@index([ownerId])
+  @@index([s3Key])
+}
+
+model Analysis {
+  id             String   @id @default(uuid())
+  project        Project  @relation(fields: [projectId], references: [id])
+  projectId      String
+  kind           String   // 'exploratory' | 'rigid_final'
+  requestPayload Json
+  responseJson   Json?
+  status         String   @default("pending")
+  failureReason  String?
+  startedAt      DateTime @default(now())
+  finishedAt     DateTime?
+  Artifacts      Artifact[]
+  @@index([projectId])
+  @@index([status])
+}
+
+model Artifact {
+  id         String   @id @default(uuid())
+  analysis   Analysis @relation(fields: [analysisId], references: [id])
+  analysisId String
+  type       String   // audio|pdf|json
+  s3Key      String
+  filename   String
+  metadata   Json?
+  createdAt  DateTime @default(now())
+  @@index([analysisId])
+}

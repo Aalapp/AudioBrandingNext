@@ -1,0 +1,16 @@
+{
+  "permissions": {
+    "allow": [
+      "mcp__figma-desktop__get_code",
+      "mcp__figma-desktop__get_screenshot",
+      "mcp__figma-desktop__get_metadata",
+      "mcp__figma-desktop__get_design_context",
+      "Bash(npm install:*)",
+      "Bash(npx prisma init)",
+      "Bash(docker-compose up:*)",
+      "Bash(npm run db:generate:*)"
+    ],
+    "deny": [],
+    "ask": []
+  }
+}
