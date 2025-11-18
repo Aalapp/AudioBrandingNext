@@ -8,6 +8,8 @@
     "start": "next start",
     "lint": "eslint . --ext .ts,.tsx",
     "lint:fix": "eslint . --ext .ts,.tsx --fix",
+    "type-check": "tsc --noEmit",
+    "check": "npm run type-check && npm run lint",
     "test": "jest",
     "test:watch": "jest --watch",
     "test:coverage": "jest --coverage",
@@ -45,6 +47,7 @@
   "devDependencies": {
     "@eslint/eslintrc": "^3.3.1",
     "@eslint/js": "^9.38.0",
+    "@next/eslint-plugin-next": "^16.0.3",
     "@types/jest": "^30.0.0",
     "@types/node": "^20.19.25",
     "@types/react": "^19.2.5",

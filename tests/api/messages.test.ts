@@ -58,7 +58,7 @@ describe('Messages API Routes', () => {
       (prisma.message.findMany as jest.Mock).mockResolvedValue(mockMessages);
 
       const request = new NextRequest('http://localhost:3000/api/projects/project-1/messages');
-      const response = await GET(request, { params: { id: 'project-1' } });
+      const response = await GET(request, { params: Promise.resolve({ id: 'project-1' }) });
 
       expect(response.status).toBe(200);
       const data = await response.json();
@@ -87,7 +87,7 @@ describe('Messages API Routes', () => {
         }),
       });
 
-      const response = await POST(request, { params: { id: 'project-1' } });
+      const response = await POST(request, { params: Promise.resolve({ id: 'project-1' }) });
 
       expect(response.status).toBe(201);
       const data = await response.json();
@@ -123,7 +123,7 @@ describe('Messages API Routes', () => {
         }),
       });
 
-      const response = await PATCH(request, { params: { id: 'msg-1' } });
+      const response = await PATCH(request, { params: Promise.resolve({ id: 'msg-1' }) });
 
       expect(response.status).toBe(200);
       const data = await response.json();
@@ -149,7 +149,7 @@ describe('Messages API Routes', () => {
         method: 'DELETE',
       });
 
-      const response = await DELETE(request, { params: { id: 'msg-1' } });
+      const response = await DELETE(request, { params: Promise.resolve({ id: 'msg-1' }) });
 
       expect(response.status).toBe(200);
       const data = await response.json();

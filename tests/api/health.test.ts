@@ -32,7 +32,7 @@ describe('Health API', () => {
     const mockRedis = {
       ping: jest.fn().mockResolvedValue('PONG'),
     };
-    (Redis as jest.Mock).mockImplementation(() => mockRedis);
+    (Redis as unknown as jest.Mock).mockImplementation(() => mockRedis);
 
     const { S3Client, ListBucketsCommand } = await import('@aws-sdk/client-s3');
     const mockS3Client = {
@@ -55,7 +55,7 @@ describe('Health API', () => {
     const mockRedis = {
       ping: jest.fn().mockResolvedValue('PONG'),
     };
-    (Redis as jest.Mock).mockImplementation(() => mockRedis);
+    (Redis as unknown as jest.Mock).mockImplementation(() => mockRedis);
 
     const response = await GET();
     const data = await response.json();

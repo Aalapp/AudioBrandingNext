@@ -33,7 +33,7 @@ describe('Jobs API Routes', () => {
       (getJobStatus as jest.Mock).mockResolvedValue(mockJobStatus);
 
       const request = jsonRequest('/api/jobs/job-1?queue=analysis');
-      const response = await GET(request, { params: { id: 'job-1' } });
+      const response = await GET(request, { params: Promise.resolve({ id: 'job-1' }) });
 
       expect(response.status).toBe(200);
       const data = await response.json();
@@ -56,7 +56,7 @@ describe('Jobs API Routes', () => {
       (getJobStatus as jest.Mock).mockResolvedValue(mockJobStatus);
 
       const request = jsonRequest('/api/jobs/job-2?queue=finalize');
-      const response = await GET(request, { params: { id: 'job-2' } });
+      const response = await GET(request, { params: Promise.resolve({ id: 'job-2' }) });
 
       expect(response.status).toBe(200);
       const data = await response.json();
@@ -69,7 +69,7 @@ describe('Jobs API Routes', () => {
 
     it('returns 400 when queue parameter is missing', async () => {
       const request = jsonRequest('/api/jobs/job-1');
-      const response = await GET(request, { params: { id: 'job-1' } });
+      const response = await GET(request, { params: Promise.resolve({ id: 'job-1' }) });
 
       expect(response.status).toBe(400);
       const data = await response.json();
@@ -78,7 +78,7 @@ describe('Jobs API Routes', () => {
 
     it('returns 400 when queue parameter is invalid', async () => {
       const request = jsonRequest('/api/jobs/job-1?queue=invalid');
-      const response = await GET(request, { params: { id: 'job-1' } });
+      const response = await GET(request, { params: Promise.resolve({ id: 'job-1' }) });
 
       expect(response.status).toBe(400);
       const data = await response.json();
@@ -89,7 +89,7 @@ describe('Jobs API Routes', () => {
       (getJobStatus as jest.Mock).mockResolvedValue(null);
 
       const request = jsonRequest('/api/jobs/missing?queue=analysis');
-      const response = await GET(request, { params: { id: 'missing' } });
+      const response = await GET(request, { params: Promise.resolve({ id: 'missing' }) });
 
       expect(response.status).toBe(404);
       const data = await response.json();
@@ -100,7 +100,7 @@ describe('Jobs API Routes', () => {
       requireAuthMock.mockRejectedValue(new Error('Unauthorized'));
 
       const request = jsonRequest('/api/jobs/job-1?queue=analysis');
-      const response = await GET(request, { params: { id: 'job-1' } });
+      const response = await GET(request, { params: Promise.resolve({ id: 'job-1' }) });
 
       expect(response.status).toBe(401);
       expect(await response.json()).toMatchObject({ error: 'Unauthorized' });

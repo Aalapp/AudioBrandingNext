@@ -208,7 +208,7 @@ describe('Finalize API Routes', () => {
 
       const response = await artifactsGET(
         jsonRequest('/api/analyses/analysis-1/artifacts'),
-        { params: { id: 'analysis-1' } }
+        { params: Promise.resolve({ id: 'analysis-1' }) }
       );
 
       expect(response.status).toBe(200);
@@ -233,7 +233,7 @@ describe('Finalize API Routes', () => {
 
       const response = await artifactsGET(
         jsonRequest('/api/analyses/analysis-1/artifacts'),
-        { params: { id: 'analysis-1' } }
+        { params: Promise.resolve({ id: 'analysis-1' }) }
       );
 
       expect(response.status).toBe(200);
@@ -246,7 +246,7 @@ describe('Finalize API Routes', () => {
 
       const response = await artifactsGET(
         jsonRequest('/api/analyses/missing/artifacts'),
-        { params: { id: 'missing' } }
+        { params: Promise.resolve({ id: 'missing' }) }
       );
 
       expect(response.status).toBe(404);
@@ -263,7 +263,7 @@ describe('Finalize API Routes', () => {
 
       const response = await artifactsGET(
         jsonRequest('/api/analyses/analysis-1/artifacts'),
-        { params: { id: 'analysis-1' } }
+        { params: Promise.resolve({ id: 'analysis-1' }) }
       );
 
       expect(response.status).toBe(403);
@@ -275,7 +275,7 @@ describe('Finalize API Routes', () => {
 
       const response = await artifactsGET(
         jsonRequest('/api/analyses/analysis-1/artifacts'),
-        { params: { id: 'analysis-1' } }
+        { params: Promise.resolve({ id: 'analysis-1' }) }
       );
 
       expect(response.status).toBe(401);

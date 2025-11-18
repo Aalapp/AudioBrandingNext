@@ -160,7 +160,7 @@ describe('Analysis API Routes', () => {
 
       const response = await statusGET(
         jsonRequest('/api/analysis/analysis-1/status'),
-        { params: { id: 'analysis-1' } }
+        { params: Promise.resolve({ id: 'analysis-1' }) }
       );
 
       expect(response.status).toBe(200);
@@ -177,7 +177,7 @@ describe('Analysis API Routes', () => {
 
       const response = await statusGET(
         jsonRequest('/api/analysis/missing/status'),
-        { params: { id: 'missing' } }
+        { params: Promise.resolve({ id: 'missing' }) }
       );
 
       expect(response.status).toBe(404);
@@ -194,7 +194,7 @@ describe('Analysis API Routes', () => {
 
       const response = await statusGET(
         jsonRequest('/api/analysis/analysis-1/status'),
-        { params: { id: 'analysis-1' } }
+        { params: Promise.resolve({ id: 'analysis-1' }) }
       );
 
       expect(response.status).toBe(403);
@@ -217,7 +217,7 @@ describe('Analysis API Routes', () => {
 
       const response = await resultGET(
         jsonRequest('/api/analysis/analysis-1/result'),
-        { params: { id: 'analysis-1' } }
+        { params: Promise.resolve({ id: 'analysis-1' }) }
       );
 
       expect(response.status).toBe(200);
@@ -239,7 +239,7 @@ describe('Analysis API Routes', () => {
 
       const response = await resultGET(
         jsonRequest('/api/analysis/analysis-1/result'),
-        { params: { id: 'analysis-1' } }
+        { params: Promise.resolve({ id: 'analysis-1' }) }
       );
 
       expect(response.status).toBe(400);
@@ -254,7 +254,7 @@ describe('Analysis API Routes', () => {
 
       const response = await resultGET(
         jsonRequest('/api/analysis/missing/result'),
-        { params: { id: 'missing' } }
+        { params: Promise.resolve({ id: 'missing' }) }
       );
 
       expect(response.status).toBe(404);
@@ -273,7 +273,7 @@ describe('Analysis API Routes', () => {
 
       const response = await resultGET(
         jsonRequest('/api/analysis/analysis-1/result'),
-        { params: { id: 'analysis-1' } }
+        { params: Promise.resolve({ id: 'analysis-1' }) }
       );
 
       expect(response.status).toBe(403);

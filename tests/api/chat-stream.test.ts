@@ -81,7 +81,7 @@ describe('Chat Stream API Routes', () => {
         useFindingsDraft: false,
       });
 
-      const response = await POST(request, { params: { id: 'project-1' } });
+      const response = await POST(request, { params: Promise.resolve({ id: 'project-1' }) });
 
       expect(response.status).toBe(200);
       expect(response.headers.get('Content-Type')).toBe('text/event-stream');
@@ -115,7 +115,7 @@ describe('Chat Stream API Routes', () => {
         message: { text: 'Hello' },
       });
 
-      const response = await POST(request, { params: { id: 'project-1' } });
+      const response = await POST(request, { params: Promise.resolve({ id: 'project-1' }) });
 
       expect(response.status).toBe(200);
       const streamText = await readStream(response.body);
@@ -130,7 +130,7 @@ describe('Chat Stream API Routes', () => {
         message: { text: 'Hello' },
       });
 
-      const response = await POST(request, { params: { id: 'project-1' } });
+      const response = await POST(request, { params: Promise.resolve({ id: 'project-1' }) });
 
       expect(response.status).toBe(404);
       expect(await response.json()).toMatchObject({
@@ -143,7 +143,7 @@ describe('Chat Stream API Routes', () => {
         useFindingsDraft: 'not-a-boolean',
       });
 
-      const response = await POST(request, { params: { id: 'project-1' } });
+      const response = await POST(request, { params: Promise.resolve({ id: 'project-1' }) });
 
       expect(response.status).toBe(400);
       const body = await response.json();
@@ -157,7 +157,7 @@ describe('Chat Stream API Routes', () => {
         message: { text: 'Hello' },
       });
 
-      const response = await POST(request, { params: { id: 'project-1' } });
+      const response = await POST(request, { params: Promise.resolve({ id: 'project-1' }) });
 
       expect(response.status).toBe(401);
       expect(await response.json()).toMatchObject({ error: 'Unauthorized' });

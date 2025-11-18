@@ -71,7 +71,7 @@ export async function composeMusic(
   } else if (payload.composition_plan) {
     console.log('Calling ElevenLabs API with composition_plan:', {
       sectionsCount: payload.composition_plan.sections.length,
-      totalDuration: payload.composition_plan.sections.reduce((sum, s) => sum + s.duration_ms, 0),
+      totalDuration: payload.composition_plan.sections.reduce((sum: number, s: ElevenLabsSection) => sum + s.duration_ms, 0),
       positiveGlobalStyles: payload.composition_plan.positive_global_styles.length,
       outputFormat: request.output_format,
     });

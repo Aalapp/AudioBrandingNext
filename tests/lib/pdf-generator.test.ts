@@ -36,10 +36,34 @@ describe('PDF Generator', () => {
       artistic_rationale: '<p>Test rationale</p>',
       jingle: {
         concept_statement: 'Test concept',
-        musical_description: '<p>Test description</p>',
+        description1: {
+          title: 'Description 1',
+          musical_elements: '<p>Test description</p>',
+        },
+        description2: {
+          title: 'Description 2',
+          musical_elements: '<p>Test description</p>',
+        },
+        description3: {
+          title: 'Description 3',
+          musical_elements: '<p>Test description</p>',
+        },
+        description4: {
+          title: 'Description 4',
+          musical_elements: '<p>Test description</p>',
+        },
+        description5: {
+          title: 'Description 5',
+          musical_elements: '<p>Test description</p>',
+        },
         keywords: ['keyword1', 'keyword2'],
         imagery: 'Test imagery',
         why_it_works: ['Reason 1', 'Reason 2'],
+      },
+      composition_plan: {
+        positive_global_styles: [],
+        negative_global_styles: [],
+        sections: [],
       },
     };
 

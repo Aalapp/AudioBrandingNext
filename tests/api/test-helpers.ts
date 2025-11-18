@@ -61,5 +61,10 @@ export async function readStream(
   return result;
 }
 
+// Helper to create params Promise for Next.js 15 route handlers
+export function createParams(id: string): Promise<{ id: string }> {
+  return Promise.resolve({ id });
+}
+
 
 

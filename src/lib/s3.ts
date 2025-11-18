@@ -218,7 +218,7 @@ export async function registerFile(
       filename,
       mimeType,
       sizeBytes,
-      metadata: metadata || null,
+      metadata: metadata ?? undefined,
     },
     include: {
       owner: {

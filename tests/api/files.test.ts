@@ -275,7 +275,7 @@ describe('Files API Routes', () => {
       });
 
       const request = jsonRequest('/api/files/file-1/presign-download');
-      const response = await downloadGET(request, { params: { id: 'file-1' } });
+      const response = await downloadGET(request, { params: Promise.resolve({ id: 'file-1' }) });
 
       expect(response.status).toBe(200);
       const data = await response.json();
@@ -292,7 +292,7 @@ describe('Files API Routes', () => {
       (s3Lib.getFileById as jest.Mock).mockResolvedValue(null);
 
       const request = jsonRequest('/api/files/missing/presign-download');
-      const response = await downloadGET(request, { params: { id: 'missing' } });
+      const response = await downloadGET(request, { params: Promise.resolve({ id: 'missing' }) });
 
       expect(response.status).toBe(404);
       expect(await response.json()).toMatchObject({ error: 'File not found' });
@@ -302,7 +302,7 @@ describe('Files API Routes', () => {
       (authLib.requireAuth as jest.Mock).mockRejectedValue(new Error('Unauthorized'));
 
       const request = jsonRequest('/api/files/file-1/presign-download');
-      const response = await downloadGET(request, { params: { id: 'file-1' } });
+      const response = await downloadGET(request, { params: Promise.resolve({ id: 'file-1' }) });
 
       expect(response.status).toBe(401);
       expect(await response.json()).toMatchObject({ error: 'Unauthorized' });
@@ -314,7 +314,7 @@ describe('Files API Routes', () => {
       (s3Lib.deleteFile as jest.Mock).mockResolvedValue({ success: true });
 
       const request = jsonRequest('/api/files/file-1', 'DELETE');
-      const response = await DELETE(request, { params: { id: 'file-1' } });
+      const response = await DELETE(request, { params: Promise.resolve({ id: 'file-1' }) });
 
       expect(response.status).toBe(200);
       const data = await response.json();
@@ -328,7 +328,7 @@ describe('Files API Routes', () => {
       );
 
       const request = jsonRequest('/api/files/missing', 'DELETE');
-      const response = await DELETE(request, { params: { id: 'missing' } });
+      const response = await DELETE(request, { params: Promise.resolve({ id: 'missing' }) });
 
       expect(response.status).toBe(404);
       expect(await response.json()).toMatchObject({
@@ -340,7 +340,7 @@ describe('Files API Routes', () => {
       (authLib.requireAuth as jest.Mock).mockRejectedValue(new Error('Unauthorized'));
 
       const request = jsonRequest('/api/files/file-1', 'DELETE');
-      const response = await DELETE(request, { params: { id: 'file-1' } });
+      const response = await DELETE(request, { params: Promise.resolve({ id: 'file-1' }) });
 
       expect(response.status).toBe(401);
       expect(await response.json()).toMatchObject({ error: 'Unauthorized' });

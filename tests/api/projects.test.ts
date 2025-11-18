@@ -138,7 +138,7 @@ describe('Projects API Routes', () => {
       (projectsLib.getProjectById as jest.Mock).mockResolvedValue(mockProject);
 
       const request = new NextRequest('http://localhost:3000/api/projects/project-1');
-      const response = await getProject(request, { params: { id: 'project-1' } });
+      const response = await getProject(request, { params: Promise.resolve({ id: 'project-1' }) });
 
       expect(response.status).toBe(200);
       const data = await response.json();
@@ -149,7 +149,7 @@ describe('Projects API Routes', () => {
       (projectsLib.getProjectById as jest.Mock).mockResolvedValue(null);
 
       const request = new NextRequest('http://localhost:3000/api/projects/project-1');
-      const response = await getProject(request, { params: { id: 'project-1' } });
+      const response = await getProject(request, { params: Promise.resolve({ id: 'project-1' }) });
 
       expect(response.status).toBe(404);
     });
@@ -173,7 +173,7 @@ describe('Projects API Routes', () => {
         }),
       });
 
-      const response = await PATCH(request, { params: { id: 'project-1' } });
+      const response = await PATCH(request, { params: Promise.resolve({ id: 'project-1' }) });
 
       expect(response.status).toBe(200);
       const data = await response.json();
@@ -189,7 +189,7 @@ describe('Projects API Routes', () => {
         method: 'DELETE',
       });
 
-      const response = await DELETE(request, { params: { id: 'project-1' } });
+      const response = await DELETE(request, { params: Promise.resolve({ id: 'project-1' }) });
 
       expect(response.status).toBe(200);
       const data = await response.json();

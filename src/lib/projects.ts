@@ -104,7 +104,7 @@ export async function createProject(
           ownerId: user.id,
           brandName: input.brandName,
           brandWebsite: input.brandWebsite,
-          initialMetadata: input.initialMetadata || null,
+          initialMetadata: input.initialMetadata ?? undefined,
         },
         include: {
           owner: {

@@ -76,7 +76,7 @@ describe('Chat API Routes', () => {
         }),
       });
 
-      const response = await POST(request, { params: { id: 'project-1' } });
+      const response = await POST(request, { params: Promise.resolve({ id: 'project-1' }) });
 
       expect(response.status).toBe(200);
       const data = await response.json();

@@ -62,7 +62,7 @@ describe('Artifacts API Routes', () => {
 
       const response = await GET(
         jsonRequest('/api/artifacts/artifact-1/presign-download'),
-        { params: { id: 'artifact-1' } }
+        { params: Promise.resolve({ id: 'artifact-1' }) }
       );
 
       expect(response.status).toBe(200);
@@ -100,7 +100,7 @@ describe('Artifacts API Routes', () => {
 
       const response = await GET(
         jsonRequest('/api/artifacts/artifact-1/presign-download'),
-        { params: { id: 'artifact-1' } }
+        { params: Promise.resolve({ id: 'artifact-1' }) }
       );
 
       expect(response.status).toBe(200);
@@ -113,7 +113,7 @@ describe('Artifacts API Routes', () => {
 
       const response = await GET(
         jsonRequest('/api/artifacts/missing/presign-download'),
-        { params: { id: 'missing' } }
+        { params: Promise.resolve({ id: 'missing' }) }
       );
 
       expect(response.status).toBe(404);
@@ -132,7 +132,7 @@ describe('Artifacts API Routes', () => {
 
       const response = await GET(
         jsonRequest('/api/artifacts/artifact-1/presign-download'),
-        { params: { id: 'artifact-1' } }
+        { params: Promise.resolve({ id: 'artifact-1' }) }
       );
 
       expect(response.status).toBe(403);
@@ -144,7 +144,7 @@ describe('Artifacts API Routes', () => {
 
       const response = await GET(
         jsonRequest('/api/artifacts/artifact-1/presign-download'),
-        { params: { id: 'artifact-1' } }
+        { params: Promise.resolve({ id: 'artifact-1' }) }
       );
 
       expect(response.status).toBe(401);
