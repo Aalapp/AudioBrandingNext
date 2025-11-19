@@ -5,7 +5,6 @@ export interface MusicalDescription {
   title: string;
   musical_elements: string;
   elevenlabs_prompt: string; // Optimized prompt for ElevenLabs music generation
-  hook?: string;
   feel?: string;
   emotional_effect?: string;
 }
@@ -41,36 +40,45 @@ export interface RigidJSONResponse {
 
 export const FINALIZE_SYSTEM_PROMPT = `You are Cadence, a hybrid music director and brand strategist.
 
-Your role: Translate brand insights into sonic strategy (Section 2) and fully-scoped jingle concepts (Section 3).
+Your role: Translate brand insights into sonic strategy (Section 2) and fully-scoped jingle 
+concepts (Section 3).
 
 ## SECTION 2: ARTISTIC RATIONALE (200-300 words)
 
-Before detailing individual jingles, write an "Artistic Rationale" section that bridges the brand findings to the musical concepts.
+Before detailing individual jingles, write an "Artistic Rationale" section that bridges the 
+brand findings to the musical concepts.
 
 **Structure:**
 
 1. **Opening statement**: Identify the brand duality or creative challenge
-   - Example: "Dognosis is a curious hybrid: it must sound like a laboratory you can trust and a partnership you can love."
+   - Example: "Dognosis is a curious hybrid: it must sound like a laboratory you can trust 
+     and a partnership you can love."
 
 2. **Musical translation** (bullet format):
    - Show how each brand quality translates to sonic language
    - Format: [Brand quality] → [Sonic approach]
    - Example:
-     • "Precision & data → clean, subtle electronic textures, steady pulses or patterns that suggest measurement and reliability."
-     • "Canine partnership & care → organic breath, sniff, and animal sounds used respectfully as musical gestures; warm harmonic colors that feel comforting rather than clinical."
+     • "Precision & data → clean, subtle electronic textures, steady pulses or patterns 
+       that suggest measurement and reliability."
+     • "Canine partnership & care → organic breath, sniff, and animal sounds used 
+       respectfully as musical gestures; warm harmonic colors that feel comforting 
+       rather than clinical."
 
 3. **Signature sound elements**:
    - Identify 2-4 non-obvious sonic ideas unique to this brand
    - Example: "Sampling both the sniff and the EEG waveform"
    - Example: "Turn the sniff into a rhythm"
+   - Example: "Heartbeat rhythm locks with dog's sniff on upbeat"
 
 4. **Variation strategy**:
    - Explain how different jingles will serve different contexts
-   - Example: "Investor-facing pieces will favour measured, dignified tones; public outreach will tilt softer and more human."
+   - Example: "Investor-facing pieces will favour measured, dignified tones; public outreach 
+     will tilt softer and more human."
 
 5. **Throughline statement**:
    - What stays consistent across all concepts?
-   - Example: "Across all five concepts the throughline is the same: science as hopeful, dogs as collaborators, and detection as a gentle act of care."
+   - Example: "Across all five concepts the throughline is the same: science as hopeful, 
+     dogs as collaborators, and detection as a gentle act of care."
 
 ---
 
@@ -83,9 +91,10 @@ Create 5 distinct jingle concepts following this format for each:
 **1. Concept Name & Tagline**
 - Evocative name that tells a story (not "Version 1" or "Upbeat Jingle")
 - Short tagline in quotes capturing essence
-- **Examples**:
+- **Examples**: 
   - "The Neural Symphony — 'The sound of discovery'"
   - "Sniff-Rhythm — 'The heartbeat of curiosity'"
+  - "Heartbeat & Nose — 'Life, listened to'"
 
 **2. Musical Description** (150-200 words narrative)
 Write a sensory journey that includes:
@@ -102,13 +111,18 @@ Write a sensory journey that includes:
 - Connect music to brand meaning throughout
 
 **Example**:
-"Imagine the dog's nose as the starting point of a story: a single, curious sniff opens a quiet room. From that breath, delicate tones unfurl — not random beeps but drawn from the signals of detection. These tones are shaped by the dog's own brain signals (we use the waveform as an audio starting point), so the music has an organic intelligence: it breathes, pauses, then resolves into a hopeful, rising phrase."
+"Imagine the dog's nose as the starting point of a story: a single, curious sniff opens a 
+quiet room. From that breath, delicate tones unfurl — not random beeps but drawn from the 
+signals of detection. These tones are shaped by the dog's own brain signals (we use the 
+waveform as an audio starting point), so the music has an organic intelligence: it breathes, 
+pauses, then resolves into a hopeful, rising phrase."
 
 **3. Emotional Effect** (one sentence, 10-15 words)
 - Capture the precise feeling this concept evokes
 - **Examples**:
   - "Every step of the diagnosis made to music — thoughtful, slightly wondrous."
   - "Approachable competence — humanizing the dog without trivializing the science."
+  - "Warmly emotional, quietly urgent in a hopeful way."
 
 ---
 
@@ -119,9 +133,22 @@ Example: "scientific humane measured hopeful credible"
 
 **How It Sounds (Imagery)** (one paragraph):
 Summarize the overall sonic approach across all concepts.
+Example: "Each concept keeps the dog at the center — respected, audible, and treated as 
+collaborator — while letting the technological rigor of DogSense and DogOS read clearly 
+through sound."
 
 **Why This Will Work** (3-4 bullet points):
-Strategic justification covering brand alignment, audience flexibility, and unique approach.
+Strategic justification covering:
+- Brand alignment and positioning
+- Audience flexibility and context adaptation
+- Unique approach or competitive differentiation
+- How it maintains consistency while varying
+
+Example:
+- "Combines precise, trustworthy electronic language with humane canine presence, aligning 
+  with brand's scientific credibility and compassion."
+- "Flexible tone across audiences — dignified for investors; softer and human for public 
+  outreach — while maintaining a consistent sonic identity."
 
 ---
 
@@ -138,8 +165,10 @@ Strategic justification covering brand alignment, audience flexibility, and uniq
 - Concept names must be evocative and brand-connected
 - Musical descriptions must use sensory language and narrative structure
 - Emotional effects must be specific to brand story (not generic like "upbeat" or "calm")
+- The set of 5 should feel cohesive yet distinctly varied
 
-Always return strictly valid JSON that follows the requested schema.`;
+Always return strictly valid JSON that follows the requested schema, with Section 2 and 
+Section 3 properly structured.`;
 
 const RIGID_RESPONSE_SCHEMA = {
   type: 'object',
@@ -174,7 +203,6 @@ const RIGID_RESPONSE_SCHEMA = {
             title: { type: 'string' },
             musical_elements: { type: 'string' },
             elevenlabs_prompt: { type: 'string' },
-            hook: { type: 'string' },
             feel: { type: 'string' },
             emotional_effect: { type: 'string' },
           },
@@ -186,7 +214,6 @@ const RIGID_RESPONSE_SCHEMA = {
             title: { type: 'string' },
             musical_elements: { type: 'string' },
             elevenlabs_prompt: { type: 'string' },
-            hook: { type: 'string' },
             feel: { type: 'string' },
             emotional_effect: { type: 'string' },
           },
@@ -198,7 +225,6 @@ const RIGID_RESPONSE_SCHEMA = {
             title: { type: 'string' },
             musical_elements: { type: 'string' },
             elevenlabs_prompt: { type: 'string' },
-            hook: { type: 'string' },
             feel: { type: 'string' },
             emotional_effect: { type: 'string' },
           },
@@ -210,7 +236,6 @@ const RIGID_RESPONSE_SCHEMA = {
             title: { type: 'string' },
             musical_elements: { type: 'string' },
             elevenlabs_prompt: { type: 'string' },
-            hook: { type: 'string' },
             feel: { type: 'string' },
             emotional_effect: { type: 'string' },
           },
@@ -222,7 +247,6 @@ const RIGID_RESPONSE_SCHEMA = {
             title: { type: 'string' },
             musical_elements: { type: 'string' },
             elevenlabs_prompt: { type: 'string' },
-            hook: { type: 'string' },
             feel: { type: 'string' },
             emotional_effect: { type: 'string' },
           },
@@ -318,7 +342,6 @@ If the website is not accessible or has limited information, use the brand name 
       "title": "... (e.g., 'Sacred Circle — Ancient wisdom, modern trust')",
       "musical_elements": "... (detailed description of instrumentation, vocals, production, e.g., 'Begins with a Himalayan singing bowl, layered with soft finger snaps...')",
       "elevenlabs_prompt": "... (optimized prompt for ElevenLabs music generation API - concise, focused on musical elements, tempo, mood, and instrumentation. Should be ready to use directly with ElevenLabs without modification)",
-      "hook": "... (optional: vocal hook or tagline)",
       "feel": "... (optional: BPM and mood, e.g., '~90 BPM, steady, grounded')",
       "emotional_effect": "... (optional: what emotion it evokes, e.g., 'Feels grounding and sacred — a dawn-lit sanctuary')"
     },
@@ -326,7 +349,6 @@ If the website is not accessible or has limited information, use the brand name 
       "title": "...",
       "musical_elements": "...",
       "elevenlabs_prompt": "...",
-      "hook": "...",
       "feel": "...",
       "emotional_effect": "..."
     },
@@ -334,7 +356,6 @@ If the website is not accessible or has limited information, use the brand name 
       "title": "...",
       "musical_elements": "...",
       "elevenlabs_prompt": "...",
-      "hook": "...",
       "feel": "...",
       "emotional_effect": "..."
     },
@@ -342,7 +363,6 @@ If the website is not accessible or has limited information, use the brand name 
       "title": "...",
       "musical_elements": "...",
       "elevenlabs_prompt": "...",
-      "hook": "...",
       "feel": "...",
       "emotional_effect": "..."
     },
@@ -350,7 +370,6 @@ If the website is not accessible or has limited information, use the brand name 
       "title": "...",
       "musical_elements": "...",
       "elevenlabs_prompt": "...",
-      "hook": "...",
       "feel": "...",
       "emotional_effect": "..."
     },
