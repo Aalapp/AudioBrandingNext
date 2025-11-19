@@ -358,7 +358,7 @@ export async function callPerplexityRigid(
       },
     ],
     temperature: 0.3,
-    max_tokens: 4000,
+    max_tokens: 12000,
     response_format: RIGID_RESPONSE_FORMAT,
   })) as {
     choices: Array<{
