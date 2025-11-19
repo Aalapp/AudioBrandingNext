@@ -194,7 +194,6 @@ export async function processFinalizeJob(job: Job<FinalizeJob>) {
                 description_number: descriptionNumber,
                 description_key: key,
                 description_title: desc.title,
-                description_hook: desc.hook,
                 description_feel: desc.feel,
                 description_emotional_effect: desc.emotional_effect,
                 elevenlabs_prompt: desc.elevenlabs_prompt,
