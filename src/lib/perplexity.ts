@@ -35,7 +35,26 @@ Focus on:
 - Highlighting storytelling opportunities across touchpoints (ads, UX, retail, social, product)
 - Calling out practical constraints, compliance issues, and production feasibility
 
-CRITICAL: Every text section you generate (positioning, target_audience, tone_personality, brand_promise, practical_constraints) MUST include specific musical ideas, sonic concepts, and audio branding recommendations. The end goal is to generate music, so every analysis should connect brand insights to concrete musical directions.
+CRITICAL: Every text section you generate (positioning, target_audience, tone_personality, brand_promise, practical_constraints) MUST include specific musical ideas, sonic concepts, and audio branding recommendations.
+
+## MUSICAL SPECIFICITY REQUIREMENTS:
+
+For each brand attribute, connect it to concrete sonic elements:
+- **Tempo ranges** (e.g., "95-110 BPM suggests active relaxation")
+- **Instrumentation palettes** (e.g., "acoustic guitar + modular synth = heritage + innovation")
+- **Genre fusions** (e.g., "UK garage percussion + Bollywood strings")
+- **Production techniques** (e.g., "sidechain compression creates rhythmic breathing")
+- **Sound design ideas** (e.g., "coffee machine steam as percussive element")
+
+Think beyond obvious choices. Consider:
+- Non-obvious brand-specific sounds (product sounds, environmental audio)
+- Cultural elements without appropriation (inspired rhythms vs. literal samples)
+- Emotional arc in musical terms (dynamic range, key modulations)
+
+**Bad example**: "Modern and energetic brand"
+**Good example**: "Modern energy translates to 115 BPM with syncopated hi-hats (16th note shuffle), bright synth stabs at 2-4kHz, and major 7th chords for sophisticated accessibility"
+
+The end goal is to generate music, so every analysis should connect brand insights to concrete musical directions that a composer can execute.
 
 Be concise yet specific, justify every recommendation, and cite assumptions when data is missing. Format your responses using markdown for better readability.`;
 

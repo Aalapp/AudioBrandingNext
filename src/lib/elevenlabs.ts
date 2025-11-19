@@ -45,7 +45,7 @@ export async function composeMusic(
   if (request.prompt) {
     payload.prompt = request.prompt;
     payload.force_instrumental = request.force_instrumental ?? true;
-    payload.music_length_ms = request.music_length_ms ?? 30000; // Default 30 seconds
+    payload.music_length_ms = request.music_length_ms ?? 10000; // Default 10 seconds
   } else if (request.composition_plan) {
     payload.composition_plan = request.composition_plan;
     payload.respect_sections_durations = request.respect_sections_durations ?? true;

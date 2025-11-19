@@ -36,7 +36,7 @@ const redis = new Redis(process.env.REDIS_URL || 'redis://localhost:6379', {
   maxRetriesPerRequest: null, // Required for BullMQ blocking operations
 });
 
-// Audio will be generated as 30 seconds based on composition_plan sections
+// Audio will be generated as 10 seconds based on composition_plan sections
 
 export interface FinalizeJob {
   analysisId: string;
@@ -170,7 +170,7 @@ export async function processFinalizeJob(job: Job<FinalizeJob>) {
           const audioBuffer = await composeMusic({
             prompt: musicalPrompt,
             force_instrumental: true,
-            music_length_ms: 30000, // 30 seconds
+            music_length_ms: 10000, // 10 seconds
             output_format: 'mp3_44100_128', // MP3 format
           });
 
@@ -188,7 +188,7 @@ export async function processFinalizeJob(job: Job<FinalizeJob>) {
               s3Key,
               filename: `${project.brandName.toLowerCase().replace(/[^a-zA-Z0-9]/g, '-')}-jingle-${descriptionNumber}.mp3`,
               metadata: {
-                duration_ms: 30000,
+                duration_ms: 10000,
                 source: 'elevenlabs',
                 method: 'prompt',
                 description_number: descriptionNumber,
