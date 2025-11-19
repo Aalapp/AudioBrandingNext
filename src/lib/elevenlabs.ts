@@ -63,11 +63,13 @@ export async function composeMusic(
   if (payload.prompt) {
     console.log('Calling ElevenLabs API with prompt:', {
       promptLength: payload.prompt.length,
+      promptFull: payload.prompt, // Log full prompt for verification
       promptPreview: payload.prompt.substring(0, 200) + '...',
       musicLengthMs: payload.music_length_ms,
       forceInstrumental: payload.force_instrumental,
       outputFormat: request.output_format,
     });
+    console.log('ElevenLabs API payload:', JSON.stringify(payload, null, 2));
   } else if (payload.composition_plan) {
     console.log('Calling ElevenLabs API with composition_plan:', {
       sectionsCount: payload.composition_plan.sections.length,

@@ -479,15 +479,28 @@ export default function DashboardPage() {
       return;
     }
 
+    // Don't allow finalizing if there's already a finalize job in progress
+    if (finalizeStatus?.status === 'running' || finalizeStatus?.status === 'pending') {
+      setError('Finalization is already in progress. Please wait for it to complete.');
+      return;
+    }
+
     setLoading(true);
     setError(null);
 
     try {
+      // Use latest conversation (including chat messages) instead of static findingsDraft
+      // This ensures re-finalization includes any updates from chat
       const finalizeResult = await analysisApi.finalize({
         analysisId: analysisStatus.id,
-        useFindingsDraft: true,
+        useFindingsDraft: false, // Use conversation snapshot which includes latest chat
       });
       setFinalizeStatus(finalizeResult);
+      // Reset artifacts when starting a new finalization
+      setArtifacts([]);
+      setAudioUrls({});
+      setPdfUrl(null);
+      setRigidResponse(null);
     } catch (err: any) {
       setError(err.message || 'Failed to finalize');
       setLoading(false);
@@ -1321,15 +1334,17 @@ export default function DashboardPage() {
                       Send
                     </button>
                   </div>
-                  {/* Show Finalize button only if not already finalized */}
-                  {!finalizeStatus && (
+                  {/* Show Finalize button - allow re-finalizing after completion */}
+                  {analysisStatus?.status === 'done' && (
                     <button
                       onClick={handleFinalize}
-                      disabled={loading}
+                      disabled={loading || (finalizeStatus?.status === 'running' || finalizeStatus?.status === 'pending')}
                       className="w-full px-4 py-2 bg-[#d75c35] text-white rounded-[10px] hover:bg-[#c54a25] disabled:opacity-50 disabled:cursor-not-allowed"
                       style={{ fontFamily: 'var(--font-poppins)' }}
                     >
-                      Finalize (Generate Audio + PDF)
+                      {finalizeStatus?.status === 'done' 
+                        ? 'Re-finalize (Generate New Audio + PDF)' 
+                        : 'Finalize (Generate Audio + PDF)'}
                     </button>
                   )}
                 </div>

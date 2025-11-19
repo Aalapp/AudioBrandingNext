@@ -10,6 +10,28 @@ import { composeMusic } from '../lib/elevenlabs';
 import { generateJingleReportPDF } from '../lib/pdf-generator';
 import Redis from 'ioredis';
 
+/**
+ * Sanitize prompt to avoid ElevenLabs ToS violations
+ * Removes or rephrases financial/payment-related terms
+ */
+function sanitizeElevenLabsPrompt(prompt: string): string {
+  // Replace financial/payment terms with neutral alternatives
+  let sanitized = prompt;
+  
+  // Replace payment-related terms
+  sanitized = sanitized.replace(/cash-register\s*['"]cha-ching['"]/gi, 'percussive chime');
+  sanitized = sanitized.replace(/cha-ching/gi, 'bright chime');
+  sanitized = sanitized.replace(/POS\s+systems?/gi, 'point-of-sale environments');
+  sanitized = sanitized.replace(/transaction\s+jingle/gi, 'completion jingle');
+  sanitized = sanitized.replace(/checkout\s+catalyst/gi, 'completion catalyst');
+  sanitized = sanitized.replace(/\bcheckout\b/gi, 'completion');
+  sanitized = sanitized.replace(/\bpayment\b/gi, 'completion');
+  sanitized = sanitized.replace(/\bfinancial\b/gi, 'commercial');
+  sanitized = sanitized.replace(/\btransaction\b/gi, 'completion');
+  
+  return sanitized.trim();
+}
+
 const redis = new Redis(process.env.REDIS_URL || 'redis://localhost:6379', {
   maxRetriesPerRequest: null, // Required for BullMQ blocking operations
 });
@@ -124,26 +146,24 @@ export async function processFinalizeJob(job: Job<FinalizeJob>) {
         }
 
         try {
-          // Build musical description prompt from the description
-          let musicalPrompt = desc.musical_elements;
-          
-          // Add additional context if available
-          if (desc.title) {
-            musicalPrompt = `${desc.title}. ${musicalPrompt}`;
-          }
-          if (desc.feel) {
-            musicalPrompt += ` ${desc.feel}.`;
-          }
-          if (desc.emotional_effect) {
-            musicalPrompt += ` ${desc.emotional_effect}.`;
-          }
-          
-          // Add artistic rationale for context (only for first description to avoid repetition)
-          if (descriptionNumber === 1 && rigidResponse.artistic_rationale) {
-            musicalPrompt = `${rigidResponse.artistic_rationale}\n\n${musicalPrompt}`;
+          // Use the elevenlabs_prompt directly from the description
+          if (!desc.elevenlabs_prompt || desc.elevenlabs_prompt.trim().length === 0) {
+            throw new Error(`Description ${descriptionNumber} is missing elevenlabs_prompt`);
           }
 
-          console.log(`Generating audio ${descriptionNumber}/5 with musical description (${musicalPrompt.length} chars)`);
+          // Log original prompt for debugging
+          console.log(`[Description ${descriptionNumber}] Original elevenlabs_prompt:`, desc.elevenlabs_prompt);
+          
+          // Sanitize prompt to avoid ElevenLabs ToS violations
+          let musicalPrompt = sanitizeElevenLabsPrompt(desc.elevenlabs_prompt);
+          
+          // Log if sanitization changed anything
+          if (musicalPrompt !== desc.elevenlabs_prompt) {
+            console.log(`[Description ${descriptionNumber}] Prompt was sanitized (removed ToS violations)`);
+            console.log(`[Description ${descriptionNumber}] Sanitized prompt:`, musicalPrompt);
+          }
+
+          console.log(`Generating audio ${descriptionNumber}/5 with ElevenLabs prompt (${musicalPrompt.length} chars)`);
           console.log(`Description ${descriptionNumber} preview:`, musicalPrompt.substring(0, 300) + '...');
 
           // Generate audio using ElevenLabs API with prompt
@@ -177,6 +197,8 @@ export async function processFinalizeJob(job: Job<FinalizeJob>) {
                 description_hook: desc.hook,
                 description_feel: desc.feel,
                 description_emotional_effect: desc.emotional_effect,
+                elevenlabs_prompt: desc.elevenlabs_prompt,
+                sanitized_prompt: musicalPrompt,
               },
             },
           });

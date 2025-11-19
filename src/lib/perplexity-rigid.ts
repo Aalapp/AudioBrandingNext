@@ -4,23 +4,15 @@ import { perplexityRequest } from './perplexity-client';
 export interface MusicalDescription {
   title: string;
   musical_elements: string;
+  elevenlabs_prompt: string; // Optimized prompt for ElevenLabs music generation
   hook?: string;
   feel?: string;
   emotional_effect?: string;
 }
 
-export interface CompositionPlanSection {
-  section_name: string;
-  positive_local_styles: string[];
-  negative_local_styles: string[];
-  duration_ms: number; // 3000-120000
-  lines?: string[]; // Optional, for lyrics (empty for instrumental)
-}
-
 export interface CompositionPlan {
   positive_global_styles: string[];
   negative_global_styles: string[];
-  sections: CompositionPlanSection[];
 }
 
 export interface RigidJSONResponse {
@@ -86,55 +78,60 @@ const RIGID_RESPONSE_SCHEMA = {
           properties: {
             title: { type: 'string' },
             musical_elements: { type: 'string' },
+            elevenlabs_prompt: { type: 'string' },
             hook: { type: 'string' },
             feel: { type: 'string' },
             emotional_effect: { type: 'string' },
           },
-          required: ['title', 'musical_elements'],
+          required: ['title', 'musical_elements', 'elevenlabs_prompt'],
         },
         description2: {
           type: 'object',
           properties: {
             title: { type: 'string' },
             musical_elements: { type: 'string' },
+            elevenlabs_prompt: { type: 'string' },
             hook: { type: 'string' },
             feel: { type: 'string' },
             emotional_effect: { type: 'string' },
           },
-          required: ['title', 'musical_elements'],
+          required: ['title', 'musical_elements', 'elevenlabs_prompt'],
         },
         description3: {
           type: 'object',
           properties: {
             title: { type: 'string' },
             musical_elements: { type: 'string' },
+            elevenlabs_prompt: { type: 'string' },
             hook: { type: 'string' },
             feel: { type: 'string' },
             emotional_effect: { type: 'string' },
           },
-          required: ['title', 'musical_elements'],
+          required: ['title', 'musical_elements', 'elevenlabs_prompt'],
         },
         description4: {
           type: 'object',
           properties: {
             title: { type: 'string' },
             musical_elements: { type: 'string' },
+            elevenlabs_prompt: { type: 'string' },
             hook: { type: 'string' },
             feel: { type: 'string' },
             emotional_effect: { type: 'string' },
           },
-          required: ['title', 'musical_elements'],
+          required: ['title', 'musical_elements', 'elevenlabs_prompt'],
         },
         description5: {
           type: 'object',
           properties: {
             title: { type: 'string' },
             musical_elements: { type: 'string' },
+            elevenlabs_prompt: { type: 'string' },
             hook: { type: 'string' },
             feel: { type: 'string' },
             emotional_effect: { type: 'string' },
           },
-          required: ['title', 'musical_elements'],
+          required: ['title', 'musical_elements', 'elevenlabs_prompt'],
         },
         keywords: {
           type: 'array',
@@ -159,36 +156,8 @@ const RIGID_RESPONSE_SCHEMA = {
           type: 'array',
           items: { type: 'string' },
         },
-        sections: {
-          type: 'array',
-          items: {
-            type: 'object',
-            properties: {
-              section_name: { type: 'string' },
-              positive_local_styles: {
-                type: 'array',
-                items: { type: 'string' },
-              },
-              negative_local_styles: {
-                type: 'array',
-                items: { type: 'string' },
-              },
-              duration_ms: { type: 'integer' },
-              lines: {
-                type: 'array',
-                items: { type: 'string' },
-              },
-            },
-            required: [
-              'section_name',
-              'positive_local_styles',
-              'negative_local_styles',
-              'duration_ms',
-            ],
-          },
-        },
       },
-      required: ['positive_global_styles', 'negative_global_styles', 'sections'],
+      required: ['positive_global_styles', 'negative_global_styles'],
     },
   },
   required: ['brand_findings', 'artistic_rationale', 'jingle', 'composition_plan'],
@@ -253,6 +222,7 @@ If the website is not accessible or has limited information, use the brand name 
     "description1": {
       "title": "... (e.g., 'Sacred Circle — Ancient wisdom, modern trust')",
       "musical_elements": "... (detailed description of instrumentation, vocals, production, e.g., 'Begins with a Himalayan singing bowl, layered with soft finger snaps...')",
+      "elevenlabs_prompt": "... (optimized prompt for ElevenLabs music generation API - concise, focused on musical elements, tempo, mood, and instrumentation. Should be ready to use directly with ElevenLabs without modification)",
       "hook": "... (optional: vocal hook or tagline)",
       "feel": "... (optional: BPM and mood, e.g., '~90 BPM, steady, grounded')",
       "emotional_effect": "... (optional: what emotion it evokes, e.g., 'Feels grounding and sacred — a dawn-lit sanctuary')"
@@ -260,6 +230,7 @@ If the website is not accessible or has limited information, use the brand name 
     "description2": {
       "title": "...",
       "musical_elements": "...",
+      "elevenlabs_prompt": "...",
       "hook": "...",
       "feel": "...",
       "emotional_effect": "..."
@@ -267,6 +238,7 @@ If the website is not accessible or has limited information, use the brand name 
     "description3": {
       "title": "...",
       "musical_elements": "...",
+      "elevenlabs_prompt": "...",
       "hook": "...",
       "feel": "...",
       "emotional_effect": "..."
@@ -274,6 +246,7 @@ If the website is not accessible or has limited information, use the brand name 
     "description4": {
       "title": "...",
       "musical_elements": "...",
+      "elevenlabs_prompt": "...",
       "hook": "...",
       "feel": "...",
       "emotional_effect": "..."
@@ -281,6 +254,7 @@ If the website is not accessible or has limited information, use the brand name 
     "description5": {
       "title": "...",
       "musical_elements": "...",
+      "elevenlabs_prompt": "...",
       "hook": "...",
       "feel": "...",
       "emotional_effect": "..."
@@ -289,19 +263,10 @@ If the website is not accessible or has limited information, use the brand name 
     "imagery": "...",
     "why_it_works": ["..."]
   },
-  "composition_plan": {
-    "positive_global_styles": ["...", "..."],
-    "negative_global_styles": ["...", "..."],
-    "sections": [
-      {
-        "section_name": "... (e.g., 'Introduction', 'Verse', 'Chorus', 'Bridge', 'Outro')",
-        "positive_local_styles": ["...", "..."],
-        "negative_local_styles": ["...", "..."],
-        "duration_ms": 6000,
-        "lines": []
-      }
-    ]
-  }
+    "composition_plan": {
+      "positive_global_styles": ["...", "..."],
+      "negative_global_styles": ["...", "..."]
+    }
 }
 
 CRITICAL REQUIREMENTS:
@@ -309,29 +274,26 @@ CRITICAL REQUIREMENTS:
 For the "jingle" object:
 - You MUST provide exactly 5 distinct musical descriptions (description1 through description5). Each should be a unique sonic concept with:
   - A descriptive title that captures the essence
-  - Detailed musical_elements describing instrumentation, vocals, production techniques, and sonic textures
+  - Detailed musical_elements describing instrumentation, vocals, production techniques, and sonic textures (for PDF report)
+  - REQUIRED elevenlabs_prompt: A concise, optimized prompt specifically designed for ElevenLabs music generation API. This should:
+    * Be ready to use directly without modification
+    * Focus on musical elements, tempo, mood, instrumentation, and production style
+    * Be clear and specific (e.g., "Upbeat electronic track at 125 BPM with driving synth bass, crisp hi-hats, and uplifting major-key melodies. Features layered percussion and modern production with a motivational, energetic feel")
+    * Avoid financial/payment terms (no "cash-register", "POS systems", "transaction", "checkout", "payment")
+    * Be concise but descriptive (aim for 100-300 characters)
   - Optional hook (vocal tagline or catchphrase)
   - Optional feel (BPM range and mood description)
   - Optional emotional_effect (what emotional response it creates)
 - Each description should offer a different sonic approach to the brand, providing variety and options for different use cases (ads, retail, social media, etc.).
 
 For the "composition_plan" object:
-1. The composition_plan must create a 30-second (30000ms) instrumental piece divided into multiple sections.
-2. The total duration of all sections must equal 30000ms (30 seconds).
-3. Each section should have a unique character that conveys the musical concept.
-4. Use English language for all style descriptions.
-5. positive_global_styles: List of musical styles that should be present throughout the entire song (e.g., "uplifting", "modern", "energetic").
-6. negative_global_styles: List of styles to avoid throughout (e.g., "dark", "aggressive", "chaotic").
-7. Each section should have:
-   - section_name: A descriptive name (e.g., "Introduction", "Main Theme", "Build-up", "Climax", "Resolution")
-   - positive_local_styles: Styles specific to this section (e.g., "gentle strings", "pulsing bass", "bright synths")
-   - negative_local_styles: Styles to avoid in this section
-   - duration_ms: Duration in milliseconds (must be between 3000 and 120000, and total must equal 30000)
-   - lines: Empty array [] (since this is instrumental only)
+1. The composition_plan provides global style guidance (no sections required).
+2. positive_global_styles: List of musical styles that should be present throughout (e.g., "uplifting", "modern", "energetic").
+3. negative_global_styles: List of styles to avoid throughout (e.g., "dark", "aggressive", "chaotic").
 
 IMPORTANT: Every brand_findings field must include potential musical ideas, sonic concepts, and audio branding recommendations. The goal is to generate music, so connect every brand insight to concrete musical directions.
 
-The composition_plan should translate the brand's musical concepts into a structured plan that can be used to generate a 30-second instrumental piece with distinct sections. The jingle descriptions provide detailed creative guidance for the PDF report.
+The elevenlabs_prompt in each description is the primary input for music generation - make it clear, specific, and optimized for the ElevenLabs API.
 
 Return ONLY valid JSON, no markdown, no code blocks.`;
 
@@ -487,6 +449,9 @@ export async function callPerplexityRigid(
       if (!desc.title || !desc.musical_elements) {
         throw new Error(`Description ${i + 1} is missing required fields: title and musical_elements are required`);
       }
+      if (!desc.elevenlabs_prompt || desc.elevenlabs_prompt.trim().length === 0) {
+        throw new Error(`Description ${i + 1} is missing required field: elevenlabs_prompt is required`);
+      }
     }
     
     // Validate composition_plan structure
@@ -501,38 +466,6 @@ export async function callPerplexityRigid(
     
     if (!Array.isArray(parsed.composition_plan.negative_global_styles)) {
       throw new Error('composition_plan.negative_global_styles must be an array');
-    }
-    
-    if (!Array.isArray(parsed.composition_plan.sections) || 
-        parsed.composition_plan.sections.length === 0) {
-      throw new Error('composition_plan.sections must be a non-empty array');
-    }
-    
-    // Validate each section
-    let totalDuration = 0;
-    for (let i = 0; i < parsed.composition_plan.sections.length; i++) {
-      const section = parsed.composition_plan.sections[i];
-      if (!section.section_name) {
-        throw new Error(`Section ${i + 1} is missing section_name`);
-      }
-      if (!Array.isArray(section.positive_local_styles) || 
-          section.positive_local_styles.length === 0) {
-        throw new Error(`Section ${i + 1} must have non-empty positive_local_styles array`);
-      }
-      if (!Array.isArray(section.negative_local_styles)) {
-        throw new Error(`Section ${i + 1} must have negative_local_styles array`);
-      }
-      if (typeof section.duration_ms !== 'number' || 
-          section.duration_ms < 3000 || 
-          section.duration_ms > 120000) {
-        throw new Error(`Section ${i + 1} duration_ms must be between 3000 and 120000`);
-      }
-      totalDuration += section.duration_ms;
-    }
-    
-    // Validate total duration is approximately 30 seconds (allow some flexibility)
-    if (totalDuration < 25000 || totalDuration > 35000) {
-      throw new Error(`Total duration must be approximately 30000ms (30 seconds), got ${totalDuration}ms`);
     }
     
     return parsed;
