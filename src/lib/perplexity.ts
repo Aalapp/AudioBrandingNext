@@ -39,23 +39,23 @@ Provide findings under these six headings using clean, descriptive prose:
 
 ### Positioning
 What does the brand do? What makes it unique? What is its strategic positioning or "sweet spot"?
-Focus on: market position, differentiation, core offering, strategic angle
+Focus on: market position, differentiation, core offering, strategic angle dont mention music
 
 ### Target Audience
 Who are the primary and secondary audiences? List specific stakeholder groups.
-Focus on: professionals, consumers, investors, regulators, partners, public segments
+Focus on: professionals, consumers, investors, regulators, partners, public segments dont mention music
 
 ### Tone & Personality
 What adjectives describe the brand's character? What is its voice and demeanor?
-Focus on: personality traits, how the brand "acts," emotional qualities, contradictions or balance
+Focus on: personality traits, how the brand "acts," emotional qualities, contradictions or balance dont mention music
 
 ### Visual & Tactile Cues
 What does the brand look and feel like? What imagery, colors, materials, or physical presence does it have?
-Focus on: visual identity, physical touchpoints, aesthetic qualities, sensory characteristics
+Focus on: visual identity, physical touchpoints, aesthetic qualities, sensory characteristics dont mention music
 
 ### Brand Promise
 What specific outcome, transformation, or value does the brand deliver to its audience?
-Focus on: the core benefit, the "job to be done," the end result for customers
+Focus on: the core benefit, the "job to be done," the end result for customers dont mention music
 
 ### Practical Constraints
 What should be avoided? Are there ethical, cultural, production, or strategic considerations?
