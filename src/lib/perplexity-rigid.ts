@@ -66,6 +66,7 @@ brand findings to the musical concepts.
 
 3. **Signature sound elements**:
    - Identify 2-4 non-obvious sonic ideas unique to this brand
+   - These can include brand-specific environmental sounds used as musical elements
    - Example: "Sampling both the sniff and the EEG waveform"
    - Example: "Turn the sniff into a rhythm"
    - Example: "Heartbeat rhythm locks with dog's sniff on upbeat"
@@ -84,7 +85,9 @@ brand findings to the musical concepts.
 
 ## SECTION 3: FINAL JINGLE CONCEPTS
 
-Create 5 distinct jingle concepts following this format for each:
+Create 5 distinct instrumental jingle concepts. These are MUSIC compositions, not sound design 
+exercises. Focus on musical elements: melody, harmony, rhythm, instrumentation, arrangement, 
+dynamics, and progression.
 
 ### For Each Jingle:
 
@@ -97,25 +100,40 @@ Create 5 distinct jingle concepts following this format for each:
   - "Heartbeat & Nose — 'Life, listened to'"
 
 **2. Musical Description** (150-200 words narrative)
-Write a sensory journey that includes:
-- **Opening moment**: How does it start? What's the first sound?
-- **Key signature element**: What makes this concept unique? (use signature sounds from Section 2)
-- **Development**: How does it progress? What layers in?
-- **Emotional arc**: What journey does the listener experience?
-- **Resolution**: How does it conclude? What feeling remains?
+
+Write a detailed musical journey focusing on composition and arrangement:
+
+**Required musical elements to describe**:
+- **Opening**: What instrument(s) establish the piece? What key/tonality? What tempo feel?
+- **Melodic content**: What carries the main melodic line? How does it develop?
+- **Harmonic progression**: What chord movement or harmonic color supports the melody?
+- **Rhythmic foundation**: What drives the rhythm? Time signature? Groove characteristics?
+- **Instrumentation layers**: What instruments enter and when? How do they interact?
+- **Arrangement dynamics**: How does the piece build or pull back? Where are the peaks?
+- **Production approach**: Acoustic vs electronic? Organic vs synthetic? Spatial qualities?
+- **Resolution**: How does the musical phrase conclude? What harmonic resolution?
+
+**Focus on MUSIC, not sound effects**:
+- Emphasize musical composition: melody, harmony, rhythm, orchestration
+- If brand-specific sounds appear (from Section 2), describe their MUSICAL function (as 
+  percussion, as rhythmic element, as textural layer) not just their novelty
+- Avoid lengthy descriptions of non-musical sound effects unless they serve a clear musical purpose
 
 **Style guidelines**:
-- Use metaphorical, sensory language (not just technical specs)
-- Include light timing references ("From that breath, delicate tones unfurl...")
-- Mention specific sonic elements (instruments, textures, signature sounds)
-- Connect music to brand meaning throughout
+- Use specific musical terminology (major/minor, arpeggios, legato, staccato, modulation, etc.)
+- Describe the compositional structure and musical arc
+- Include timing for key musical moments ("at 0:16 the bass enters," "by 0:45 the harmony shifts")
+- Connect musical choices to brand meaning
 
-**Example**:
-"Imagine the dog's nose as the starting point of a story: a single, curious sniff opens a 
-quiet room. From that breath, delicate tones unfurl — not random beeps but drawn from the 
-signals of detection. These tones are shaped by the dog's own brain signals (we use the 
-waveform as an audio starting point), so the music has an organic intelligence: it breathes, 
-pauses, then resolves into a hopeful, rising phrase."
+**Example of music-focused description**:
+"The piece opens with a solo acoustic guitar establishing a gentle, fingerpicked pattern in 
+C major at 100 BPM. A warm clarinet melody enters at 0:08, playing a four-bar phrase that 
+rises gently with a major 7th interval suggesting hopefulness. At 0:16, a subtle electronic 
+bass synth (Moog-style, sine-wave based) locks in with the rhythm while maintaining the organic 
+feel. The harmony shifts to a IV-I progression at 0:24, adding emotional lift. By the bridge 
+at 0:45, strings enter with sustained, legato phrasing, creating a lush harmonic bed. The piece 
+resolves back to C major with the clarinet restating the opening melodic phrase, now supported 
+by the full arrangement, creating a sense of completion and reassurance."
 
 **3. Emotional Effect** (one sentence, 10-15 words)
 - Capture the precise feeling this concept evokes
@@ -132,7 +150,7 @@ pauses, then resolves into a hopeful, rising phrase."
 Example: "scientific humane measured hopeful credible"
 
 **How It Sounds (Imagery)** (one paragraph):
-Summarize the overall sonic approach across all concepts.
+Summarize the overall musical approach across all concepts.
 Example: "Each concept keeps the dog at the center — respected, audible, and treated as 
 collaborator — while letting the technological rigor of DogSense and DogOS read clearly 
 through sound."
@@ -152,20 +170,31 @@ Example:
 
 ---
 
-## QUALITY REQUIREMENTS:
+## CRITICAL REQUIREMENTS:
 
-**For Section 2 (Artistic Rationale)**:
-- Must identify signature sound elements specific to this brand (not generic)
-- Must explain the brand duality or tension being resolved
-- Must preview how concepts will vary for different audiences
+**DO include in descriptions**:
+✅ Specific instruments and their roles (piano, strings, electronic bass, clarinet, etc.)
+✅ Musical terminology (tempo, key, time signature, dynamics, articulation)
+✅ Melodic and harmonic progression details
+✅ Rhythmic patterns and groove characteristics
+✅ Arrangement structure (intro, development, climax, resolution)
+✅ How musical elements layer and interact
+✅ Production aesthetic (organic, electronic, hybrid, spatial)
+✅ Timing of key musical moments
 
-**For Section 3 (Jingle Concepts)**:
-- Each concept must be conceptually distinct (not just tempo/energy variations)
-- At least 2-3 concepts must use brand-specific signature sounds from Section 2
-- Concept names must be evocative and brand-connected
-- Musical descriptions must use sensory language and narrative structure
-- Emotional effects must be specific to brand story (not generic like "upbeat" or "calm")
-- The set of 5 should feel cohesive yet distinctly varied
+**DO NOT include**:
+❌ Any mention of vocals, singing, lyrics, or voice
+❌ Lengthy descriptions of non-musical sound effects as the main focus
+❌ Generic statements without musical specificity ("it sounds modern and energetic")
+
+**Quality Standards for Section 3**:
+- Each concept must be compositionally distinct (different melodic approach, harmonic color, 
+  instrumentation palette, rhythmic feel)
+- Descriptions must read like musical scores translated to prose
+- Every concept should include at least: key/tonality, tempo feel, primary instruments, 
+  harmonic movement, and arrangement arc
+- If brand-specific sounds from Section 2 are used, describe them as musical elements 
+  (e.g., "the sniff becomes a percussive accent on beat 3" not "we hear a sniff sound")
 
 Always return strictly valid JSON that follows the requested schema, with Section 2 and 
 Section 3 properly structured.`;

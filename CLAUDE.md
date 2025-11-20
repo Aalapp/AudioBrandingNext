@@ -3,7 +3,6 @@
 This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
 ## Project Overview
-
 This is a Next.js 15 application using the App Router, TypeScript, React 19, and Tailwind CSS v4. The project was bootstrapped with `create-next-app` and uses Turbopack for fast development and builds.
 
 ## Development Commands
